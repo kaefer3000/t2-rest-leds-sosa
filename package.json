@@ -1,0 +1,25 @@
+{
+  "name": "t2-rest-leds-sosa",
+  "version": "0.0.0",
+  "description": "Tessel project",
+  "main": "index.js",
+  "dependencies": {
+    "morgan": "^1.7.0",
+    "rdf-ext": "^0.3.0",
+    "rdf-formats-common": "^0.3.0",
+    "rdf-body-parser": "file:/../rdf-body-parser",
+    "express": "^4.14.0",
+    "body-parser": "^1.15.2",
+    "rdf-serializer-rdfxml": "git://github.com/kaefer3000/rdf-serializer-rdfxml.git"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "https://github.com/kaefer3000/t2-rest-leds-sosa.git",
+  "keywords": [
+    "Tessel"
+  ],
+  "license": "MIT",
+  "readme": "A bare bones Tessel 2 blinky script."
+}
