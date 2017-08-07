@@ -1,0 +1,3 @@
+http://www.w3.org/ns/ssn/forProperty
+http://www.w3.org/ns/ssn/hasProperty
+http://www.w3.org/ns/ssn/implements

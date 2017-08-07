@@ -1,0 +1,14 @@
+http://www.w3.org/ns/sosa/ActuatableProperty
+http://www.w3.org/ns/sosa/Actuation
+http://www.w3.org/ns/sosa/Actuator
+http://www.w3.org/ns/sosa/hasFeatureOfInterest
+http://www.w3.org/ns/sosa/hasSimpleResult
+http://www.w3.org/ns/sosa/hosts
+http://www.w3.org/ns/sosa/madeByActuator
+http://www.w3.org/ns/sosa/madeBySensor
+http://www.w3.org/ns/sosa/ObservableProperty
+http://www.w3.org/ns/sosa/Observation
+http://www.w3.org/ns/sosa/observes
+http://www.w3.org/ns/sosa/Platform
+http://www.w3.org/ns/sosa/Procedure
+http://www.w3.org/ns/sosa/Sensor
