@@ -59,7 +59,8 @@ A GET request on the root URI (`curl http://t2-rest-leds.lan/`) returns a link t
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix sosa: <http://www.w3.org/ns/sosa/> .
 
-<#tessel2> a sosa:Platform ;
+<#tessel2>
+  a sosa:Platform ;
   foaf:isPrimaryTopicOf <> ;
   sosa:hosts <leds/#bar> .
   sosa:hosts <leds/systems/#sensact> .
@@ -70,7 +71,8 @@ A GET request on the URI of the array of LEDs (`curl http://t2-rest-leds.lan/led
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix sosa: <http://www.w3.org/ns/sosa/> .
 
-<#bar> a sosa:Platform ;
+<#bar>
+  a sosa:Platform ;
   foaf:isPrimaryTopicOf <> ; 
   sosa:hosts <0#led> , <1#led> , <2#led> , <3#led> .
 ```
@@ -83,10 +85,13 @@ A GET request on the URI of a LED (eg. `curl http://t2-rest-leds.lan/led/0`) ret
 @prefix ssn:   <http://www.w3.org/ns/ssn/> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 
-<#led> a saref:LightingDevice ; 
+<#led>
+  a saref:LightingDevice ; 
   foaf:isPrimaryTopicOf <> ;
   ssn:hasProperty <#light> .
-<#light> a sosa:ActuableProperty, sosa:ObservableProperty ;
+  
+<#light>
+  a sosa:ActuableProperty, sosa:ObservableProperty ;
   sosa:isObservedBy <systems/sensor/0#it> ;
   sosa:isActedOnBy <systems/sensor/0#it> ;
   rdf:value saref:Off.
