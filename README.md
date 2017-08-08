@@ -102,7 +102,7 @@ You can change the state of a LED using PUT requests with corresponding payload 
 $ curl http://t2-rest-leds.lan/led/0 -X PUT -Hcontent-type:text/turtle \
   --data-binary ' <#light> <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> <https://w3id.org/saref#On> . '
 ```
-
+### Generating Actuations and Observations
 You can also receive observations and actuations from the resources in `leds/systems/`.
 The corresponding resources are linked from this information resource, see the result of `curl http://t2-rest-leds.lan/leds/systems/`:
 ```turtle
