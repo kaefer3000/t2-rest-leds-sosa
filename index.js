@@ -278,11 +278,11 @@ systemsgraph.addAll(
     new rdf.Triple(
       new rdf.NamedNode('#senseact'),
       new rdf.NamedNode('http://www.w3.org/ns/sosa/hosts'),
-      new rdf.NamedNode('actuators/'+i+'#a')),
+      new rdf.NamedNode('actuators/'+i+'#it')),
     new rdf.Triple(
       new rdf.NamedNode('#senseact'),
       new rdf.NamedNode('http://www.w3.org/ns/sosa/hosts'),
-      new rdf.NamedNode('sensors/'+i+'#s'))
+      new rdf.NamedNode('sensors/'+i+'#it'))
   ]);
 }
 
