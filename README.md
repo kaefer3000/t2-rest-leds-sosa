@@ -99,7 +99,17 @@ $ curl http://t2-rest-leds.lan/led/0 -X PUT -Hcontent-type:text/turtle \
 ```
 
 You can also receive observations and actuations from the resources in `leds/systems/`.
-The corresponding resources are linked from this information resource.
+The corresponding resources are linked from this information resource, see the result of `curl http://t2-rest-leds.lan/leds/systems/`:
+```turtle
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+<#senseact>
+  a sosa:Platform ;
+  foaf:isPrimaryTopicOf <> ;
+  sosa:hosts <actuators/0#it>, <actuators/1#it>, <actuators/2#it>, <actuators/3#it>, <sensors/0#it>, <sensors/1#it>, <sensors/2#it>, <sensors/3#it> .
+```
 For instance, you can receive a description of the sensor related to LED 0 using `curl http://t2-rest-leds.lan/leds/systems/sensors/0`:
 ```turtle
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
@@ -125,11 +135,14 @@ Let's generate an observation (`curl -X POST http://t2-rest-leds.lan/leds/system
 @prefix saref: <https://w3id.org/saref#> .
 @prefix sosa: <http://www.w3.org/ns/sosa/> .
 
-[] a sosa:Observation ;
+[]
+  a sosa:Observation ;
   sosa:madeBySensor <#it> ;
   sosa:hasFeatureOfInterest <../../leds/0#led> ;
   sosa:hasSimpleResult saref:Off .
-<#it> a sosa:Sensor ;
+
+<#it>
+  a sosa:Sensor ;
   sosa:observes <../../leds/0#state> .
 ```
 Correspondingly, we can generate acutations.
@@ -142,15 +155,15 @@ Information on the actuator can be retrieved using `curl http://t2-rest-leds.lan
 @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
 
 <#it>
-    a sosa:Actuator ;
-    ssn:forProperty <http://192.168.1.101/leds/leds/0#state> ;
-    ssn:implements <#procedure> ;
-    foaf:isPrimaryTopicOf <> .
+  a sosa:Actuator ;
+  foaf:isPrimaryTopicOf <> ;
+  ssn:forProperty <http://192.168.1.101/leds/leds/0#state> ;
+  ssn:implements <#procedure> .
 
 <#procedure>
-    a http:Request, sosa:Procedure ;
-    http:mthd <http://www.w3.org/2011/http-methods#PUT> ;
-    http:requestURI "../../leds/0"^^xsd:anyURI .
+  a http:Request, sosa:Procedure ;
+  http:mthd <http://www.w3.org/2011/http-methods#PUT> ;
+  http:requestURI "../../leds/0"^^xsd:anyURI .
 ```
 And with a POST request, we can toggle the light and generate actuations.
 The API does (or here mimics, because here, the API runs in the same process as the raw LED API) a PUT request behind the scenes.
@@ -160,10 +173,13 @@ The POST request (made using `curl -X POST http://t2-rest-leds.lan/leds/systems/
 @prefix sosa: <http://www.w3.org/ns/sosa/> .
 @prefix ssn:  <http://www.w3.org/ns/ssn/> .
 
-[] a sosa:Actuation ;
+[]
+  a sosa:Actuation ;
   sosa:madeByActuator <#it> ;
   sosa:hasFeatureOfInterest <../../leds/0#led> ;
   sosa:hasSimpleResult saref:On .
-<#it> a sosa:Actuator ;
+
+<#it>
+  a sosa:Actuator ;
   ssn:forProperty <../../leds/0#state> .
 ```
