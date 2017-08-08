@@ -165,10 +165,35 @@ ledApp.route("/:id").get(function(request, response) {
     var statetriple;
 
     if (tessel.led[id].isOn)
-      response.sendGraph(ledGraphOn);
+      response.sendGraph(
+        ledGraphOn.merge(
+          [
+            new rdf.Triple(
+              new rdf.NamedNode('#light'),
+              new rdf.NamedNode('http://www.w3.org/ns/sosa/isObservedBy'),
+              new rdf.NamedNode('systems/sensors/' + id + '#it')),
+            new rdf.Triple(
+              new rdf.NamedNode('#light'),
+              new rdf.NamedNode('http://www.w3.org/ns/sosa/isActedOnBy'),
+              new rdf.NamedNode('systems/actuators/' + id + '#it'))
+          ]
+        )
+      );
     else
-      response.sendGraph(ledGraphOff);
-
+      response.sendGraph(
+        ledGraphOff.merge(
+          [
+            new rdf.Triple(
+              new rdf.NamedNode('#light'),
+              new rdf.NamedNode('http://www.w3.org/ns/sosa/isObservedBy'),
+              new rdf.NamedNode('systems/sensors/' + id + '#it')),
+            new rdf.Triple(
+              new rdf.NamedNode('#light'),
+              new rdf.NamedNode('http://www.w3.org/ns/sosa/isActedOnBy'),
+              new rdf.NamedNode('systems/actuators/' + id + '#it'))
+          ]
+        )
+      );
   } else {
     response.sendStatus(404);
   }
