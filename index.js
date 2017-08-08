@@ -264,9 +264,14 @@ systemsgraph.addAll(
   [
    new rdf.Triple(
       new rdf.NamedNode('#senseact'),
+      new rdf.NamedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'),
+      new rdf.NamedNode('http://www.w3.org/ns/sosa/Platform')),
+   new rdf.Triple(
+      new rdf.NamedNode('#senseact'),
       new rdf.NamedNode('http://xmlns.com/foaf/0.1/isPrimaryTopicOf'),
       new rdf.NamedNode(''))
-  ])
+  ]
+);
 for (i = 0 ; i <= 3 ; i++) {
 systemsgraph.addAll(
   [
