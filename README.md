@@ -77,7 +77,7 @@ A GET request on the URI of the array of LEDs (`curl http://t2-rest-leds.lan/led
   sosa:hosts <0#led> , <1#led> , <2#led> , <3#led> .
 ```
 
-A GET request on the URI of a LED (eg. `curl http://t2-rest-leds.lan/led/0`) returns information about the state of the LED (the LED is obviously off):
+A GET request on the URI of a LED (eg. `curl http://t2-rest-leds.lan/leds/0`) returns information about the state of the LED (the LED is obviously off):
 ```turtle
 @prefix foaf:  <http://xmlns.com/foaf/0.1/> .
 @prefix saref: <https://w3id.org/saref#> .
@@ -92,14 +92,14 @@ A GET request on the URI of a LED (eg. `curl http://t2-rest-leds.lan/led/0`) ret
   
 <#light>
   a sosa:ActuableProperty, sosa:ObservableProperty ;
-  sosa:isObservedBy <systems/sensor/0#it> ;
-  sosa:isActedOnBy <systems/sensor/0#it> ;
+  sosa:isObservedBy <systems/sensors/0#it> ;
+  sosa:isActedOnBy <systems/sensors/0#it> ;
   rdf:value saref:Off.
 ```
 
 You can change the state of a LED using PUT requests with corresponding payload (the other two triples in the previous examples are considerd as server-managed, ie. you do not need to send them in a PUT request), here we turn the LED on:
 ```bash
-$ curl http://t2-rest-leds.lan/led/0 -X PUT -Hcontent-type:text/turtle \
+$ curl http://t2-rest-leds.lan/leds/0 -X PUT -Hcontent-type:text/turtle \
   --data-binary ' <#light> <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> <https://w3id.org/saref#On> . '
 ```
 ### Generating Actuations and Observations
@@ -113,7 +113,7 @@ The corresponding resources are linked from this information resource, see the r
 <#senseact>
   a sosa:Platform ;
   foaf:isPrimaryTopicOf <> ;
-  sosa:hosts <actuators/0#it>, <actuators/1#it>, <actuators/2#it>, <actuators/3#it>, <sensors/0#it>, <sensors/1#it>, <sensors/2#it>, <sensors/3#it> .
+  sosa:hosts <sensors/0#it>, <actuators/0#it>, <sensors/1#it>, <actuators/1#it>, <sensors/2#it>, <actuators/2#it>,  <sensors/3#it>, <actuators/3#it> .
 ```
 For instance, you can receive a description of the sensor related to LED 0 using `curl http://t2-rest-leds.lan/leds/systems/sensors/0`:
 ```turtle
@@ -125,14 +125,14 @@ For instance, you can receive a description of the sensor related to LED 0 using
 
 <#it>
     a sosa:Sensor ;
-    sosa:observes <http://192.168.1.101/leds/leds/0#state> ;
+    sosa:observes <../../0#state> ;
     ssn:implements <#procedure> ;
     foaf:isPrimaryTopicOf <> .
 
 <#procedure>
     a http:Request, sosa:Procedure ;
     http:mthd <http://www.w3.org/2011/http-methods#GET> ;
-    http:requestURI "../../leds/0"^^xsd:anyURI .
+    http:requestURI "../../0"^^xsd:anyURI .
 ```
 So when you ask for an observation using a POST request, the API makes (or here mimics, because here, the API runs in the same process as the raw LED API) a GET request to the given URI, and an observation is generated.
 Let's generate an observation (`curl -X POST http://t2-rest-leds.lan/leds/systems/sensors/0`) and have a look at it:
@@ -143,12 +143,12 @@ Let's generate an observation (`curl -X POST http://t2-rest-leds.lan/leds/system
 []
   a sosa:Observation ;
   sosa:madeBySensor <#it> ;
-  sosa:hasFeatureOfInterest <../../leds/0#led> ;
+  sosa:hasFeatureOfInterest <../../0#led> ;
   sosa:hasSimpleResult saref:Off .
 
 <#it>
   a sosa:Sensor ;
-  sosa:observes <../../leds/0#state> .
+  sosa:observes <../../0#state> .
 ```
 Correspondingly, we can generate acutations.
 Information on the actuator can be retrieved using `curl http://t2-rest-leds.lan/leds/systems/actuators/0`:
@@ -162,13 +162,13 @@ Information on the actuator can be retrieved using `curl http://t2-rest-leds.lan
 <#it>
   a sosa:Actuator ;
   foaf:isPrimaryTopicOf <> ;
-  ssn:forProperty <http://192.168.1.101/leds/leds/0#state> ;
+  ssn:forProperty <../../0#state> ;
   ssn:implements <#procedure> .
 
 <#procedure>
   a http:Request, sosa:Procedure ;
   http:mthd <http://www.w3.org/2011/http-methods#PUT> ;
-  http:requestURI "../../leds/0"^^xsd:anyURI .
+  http:requestURI "../../0"^^xsd:anyURI .
 ```
 And with a POST request, we can toggle the light and generate actuations.
 The API does (or here mimics, because here, the API runs in the same process as the raw LED API) a PUT request behind the scenes.
@@ -181,10 +181,10 @@ The POST request (made using `curl -X POST http://t2-rest-leds.lan/leds/systems/
 []
   a sosa:Actuation ;
   sosa:madeByActuator <#it> ;
-  sosa:hasFeatureOfInterest <../../leds/0#led> ;
+  sosa:hasFeatureOfInterest <../../0#led> ;
   sosa:hasSimpleResult saref:On .
 
 <#it>
   a sosa:Actuator ;
-  ssn:forProperty <../../leds/0#state> .
+  ssn:forProperty <../../0#state> .
 ```
