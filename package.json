@@ -7,7 +7,7 @@
     "morgan": "^1.7.0",
     "rdf-ext": "^0.3.0",
     "rdf-formats-common": "^0.3.0",
-    "rdf-body-parser": "file:/../rdf-body-parser",
+    "rdf-body-parser": "git://github.com/kaefer3000/rdf-body-parser",
     "express": "^4.14.0",
     "body-parser": "^1.15.2",
     "rdf-serializer-rdfxml": "git://github.com/kaefer3000/rdf-serializer-rdfxml.git"
